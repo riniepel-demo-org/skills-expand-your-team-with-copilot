@@ -163,6 +163,17 @@ initial_activities = {
         },
         "max_participants": 16,
         "participants": ["william@mergington.edu", "jacob@mergington.edu"]
+    },
+    "Manga Maniacs": {
+        "description": "Dive into epic adventures, heart-pounding battles, and unforgettable friendships! Join fellow otaku to discuss your favorite manga heroes, from shonen legends to shoujo romance. Whether you're into epic power-ups, plot twists that hit like a truck-kun, or just want to share your latest manga haul, this is your dojo!",
+        "schedule": "Tuesdays, 7:00 PM - 8:00 PM",
+        "schedule_details": {
+            "days": ["Tuesday"],
+            "start_time": "19:00",
+            "end_time": "20:00"
+        },
+        "max_participants": 15,
+        "participants": []
     }
 }
 
