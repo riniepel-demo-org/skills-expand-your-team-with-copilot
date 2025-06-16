@@ -1,0 +1,177 @@
+name: Bug Report
+description: Report a problem or error with the application
+title: "[BUG] "
+labels: ["bug", "needs-investigation"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Bug Report
+        
+        Use this template to report problems, errors, or unexpected behavior in the Mergington High School Activities application.
+        
+        **For Copilot Developer:** Bug investigations should start with:
+        - Reproducing the issue using the provided steps
+        - Checking browser console for JavaScript errors
+        - Reviewing relevant code in the affected area
+        - Testing the fix thoroughly before deployment
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Bug Description
+      description: What went wrong? Describe the problem clearly
+      placeholder: |
+        Example: "When I try to register a student for Chess Club, I get an error message and the student is not added to the activity."
+        
+        Include:
+        - What you were trying to do
+        - What actually happened
+        - Any error messages you saw
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Provide detailed steps that someone else can follow to see the same problem
+      placeholder: |
+        1. Go to the activities website
+        2. Click "Teacher Login" 
+        3. Log in with username "teacher1" and password "password123"
+        4. Find "Chess Club" activity
+        5. Click "Register Student"
+        6. Enter student email "john@mergington.edu"
+        7. Click "Register" button
+        8. [Describe what happens - error message, nothing happens, etc.]
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What should have happened instead?
+      placeholder: |
+        Example: "The student should be successfully registered for Chess Club, and I should see a green success message saying 'Signed up john@mergington.edu for Chess Club'. The student should appear in the participants list."
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happened? Include any error messages
+      placeholder: |
+        Example: "I see a red error message that says 'Failed to sign up. Please try again.' The student is not added to the participants list, and the modal stays open."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity Level
+      description: How much does this bug impact your work?
+      options:
+        - Low - Minor inconvenience, workaround exists
+        - Medium - Affects some functionality, but work can continue
+        - High - Blocks important tasks, no clear workaround
+        - Critical - Completely prevents using the application
+    validations:
+      required: true
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: How Often Does This Happen?
+      description: How frequently do you encounter this bug?
+      options:
+        - Always - Every time I try this action
+        - Often - Most times I try this action
+        - Sometimes - Happens occasionally
+        - Rarely - Only happened once or twice
+        - Unknown - Not sure about frequency
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: affected-features
+    attributes:
+      label: Which Features Are Affected?
+      description: Check all areas of the application where you've seen this problem
+      options:
+        - label: Student registration for activities
+        - label: Student unregistration from activities
+        - label: Teacher login
+        - label: Activity display/filtering
+        - label: Activity search
+        - label: Mobile/tablet view
+        - label: Data loading/saving
+        - label: Error messages or notifications
+
+  - type: textarea
+    id: browser-info
+    attributes:
+      label: Browser and Device Information
+      description: What browser and device were you using when this happened?
+      placeholder: |
+        Browser: Chrome, Firefox, Safari, Edge (include version if known)
+        Device: Windows laptop, Mac computer, iPhone, Android tablet, etc.
+        Screen size: Large desktop monitor, small laptop screen, phone, etc.
+        
+        Example: "Chrome browser on a Windows laptop with a 1920x1080 monitor"
+    validations:
+      required: true
+
+  - type: textarea
+    id: workaround
+    attributes:
+      label: Workaround (if any)
+      description: Have you found any way to work around this problem?
+      placeholder: |
+        Example: "If I refresh the page and try again, it sometimes works" or "I can register students by manually adding them to the database"
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information that might help solve this bug
+      placeholder: |
+        - Does this happen with specific activities or all activities?
+        - Does this happen with certain student emails or all emails?
+        - Any recent changes that might be related?
+        - Screenshots or screen recordings of the problem?
+        - Any relevant error messages from browser console?
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: testing-checklist
+    attributes:
+      label: Testing Checklist for Developer
+      description: Developer should verify these items when fixing the bug
+      options:
+        - label: Bug can be reproduced using the provided steps
+        - label: Root cause has been identified
+        - label: Fix resolves the issue without breaking other functionality
+        - label: Fix has been tested in multiple browsers
+        - label: Fix works on both desktop and mobile devices
+        - label: Error handling is appropriate and user-friendly
+        - label: No new bugs introduced by the fix
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        **Developer Investigation Notes:**
+        - Check browser console for JavaScript errors
+        - Review network requests in browser dev tools
+        - Check server logs for backend errors
+        - Test with different user accounts and data
+        - Consider edge cases and validation issues
+        - Verify database operations are working correctly

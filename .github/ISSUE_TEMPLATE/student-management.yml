@@ -1,0 +1,197 @@
+name: Student Management
+description: Request changes to how students are registered, managed, or tracked in activities
+title: "[STUDENTS] "
+labels: ["student-management", "enhancement"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Student Management Request
+        
+        Use this template for requests related to student registration, management, and tracking in activities.
+        
+        **For Copilot Developer:** Student management involves:
+        - Registration/unregistration logic in `src/backend/routers/activities.py`
+        - Student data handling in the database (participants arrays)
+        - Frontend registration modals and participant displays in `src/static/`
+        - Teacher authentication for student management actions
+
+  - type: dropdown
+    id: request-type
+    attributes:
+      label: Type of Student Management Request
+      description: What kind of student management feature do you need?
+      options:
+        - Bulk student registration (upload from file)
+        - Bulk student unregistration
+        - Student waiting lists for full activities
+        - Student transfer between activities
+        - Enhanced student information display
+        - Registration approval workflow
+        - Student registration history/reports
+        - Parent/guardian notifications
+        - Student registration limits/restrictions
+        - Other student management feature
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-process
+    attributes:
+      label: Current Process and Problems
+      description: How do you currently manage students for activities, and what are the challenges?
+      placeholder: |
+        Example: "Currently I have to register students one by one, which takes forever when I have a list of 30 students for Drama Club. I also can't easily see which students are registered for multiple activities."
+        
+        Describe:
+        - Current manual steps you have to take
+        - How much time it takes
+        - What mistakes or problems occur
+        - What information is hard to find or track
+    validations:
+      required: true
+
+  - type: textarea
+    id: desired-functionality
+    attributes:
+      label: Desired Functionality
+      description: Describe exactly how you want student management to work
+      placeholder: |
+        Example: "I want to upload a CSV file with student names and emails, and have them all registered for the selected activity at once. The system should tell me if any students are already registered or if any emails are invalid."
+        
+        Include details about:
+        - What actions you want to perform
+        - What information you need to see
+        - How the interface should work
+        - What confirmations or notifications you need
+    validations:
+      required: true
+
+  - type: textarea
+    id: data-requirements
+    attributes:
+      label: Student Data Requirements
+      description: What student information do you need to track or display?
+      placeholder: |
+        Current student data: Name (derived from email), Email address
+        
+        Additional data you might need:
+        - Full student names (first and last name separately)
+        - Grade level or graduation year
+        - Parent/guardian contact information
+        - Emergency contact details
+        - Medical/dietary restrictions
+        - Previous activity participation
+        - Registration timestamps
+    validations:
+      required: false
+
+  - type: textarea
+    id: file-format-requirements
+    attributes:
+      label: File Format Requirements (if applicable)
+      description: If requesting bulk operations, what file formats should be supported?
+      placeholder: |
+        Example:
+        - CSV files with headers: Student Name, Email, Grade Level
+        - Excel files (.xlsx) with multiple sheets
+        - Simple text files with one email per line
+        - Specific column order or naming requirements
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Check all requirements that must be met for this feature
+      options:
+        - label: Feature works correctly for authenticated teachers
+        - label: Student data is validated before processing
+        - label: Appropriate error messages for invalid data or conflicts
+        - label: Success confirmations show what was accomplished
+        - label: Existing student registrations are handled properly
+        - label: Feature works on both desktop and mobile devices
+        - label: Student privacy and data security is maintained
+
+  - type: dropdown
+    id: priority-level
+    attributes:
+      label: Priority Level
+      description: How important is this for your daily work?
+      options:
+        - Low - Would be nice but not essential
+        - Medium - Would save significant time and effort
+        - High - Important for managing large groups of students
+        - Critical - Current process is unworkable for our needs
+    validations:
+      required: true
+
+  - type: textarea
+    id: scale-requirements
+    attributes:
+      label: Scale Requirements
+      description: How many students do you typically need to manage at once?
+      placeholder: |
+        Example:
+        - Typical registration: 15-20 students per activity
+        - Large events: Up to 100 students across all activities
+        - Busy registration periods: 200+ students in one day
+        - Maximum activity size: 30 students
+    validations:
+      required: false
+
+  - type: textarea
+    id: error-handling
+    attributes:
+      label: Error Handling Requirements
+      description: What should happen when there are problems with student data?
+      placeholder: |
+        Examples:
+        - If a student email is invalid, show which ones failed and continue with valid ones
+        - If a student is already registered, ask whether to skip or overwrite
+        - If an activity is full, offer to add to waiting list
+        - Provide a summary of successes and failures after bulk operations
+    validations:
+      required: false
+
+  - type: textarea
+    id: integration-needs
+    attributes:
+      label: Integration with Other Systems
+      description: Does this need to work with other school systems or processes?
+      placeholder: |
+        Example:
+        - Export data to school's main student information system
+        - Import from existing registration forms or surveys
+        - Send notifications through school email system
+        - Sync with attendance tracking systems
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other important information about this student management request
+      placeholder: |
+        - How many teachers will use this feature?
+        - Any privacy or permissions considerations?
+        - Deadlines or important dates?
+        - Examples from other schools or systems you've used?
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        **Developer Implementation Notes:**
+        - Consider data validation and sanitization for bulk operations
+        - Implement proper error handling and user feedback
+        - Ensure teacher authentication for all student management operations
+        - Consider database performance with large student datasets
+        - Plan for data backup and recovery scenarios
+        - Test with realistic data volumes and edge cases

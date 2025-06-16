@@ -1,0 +1,240 @@
+name: Data Management
+description: Request data import, export, backup, or reporting capabilities
+title: "[DATA] "
+labels: ["data-management", "enhancement"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Data Management Request
+        
+        Use this template for requests related to importing, exporting, backing up, or reporting on student and activity data.
+        
+        **For Copilot Developer:** Data management typically involves:
+        - New API endpoints for data operations in `src/backend/routers/`
+        - File handling and processing logic (CSV, Excel, JSON)
+        - Database queries and data transformation
+        - Frontend interfaces for file upload/download
+        - Consider data security, validation, and error handling
+
+  - type: dropdown
+    id: data-operation
+    attributes:
+      label: Type of Data Operation
+      description: What kind of data management do you need?
+      options:
+        - Export activity data to spreadsheet
+        - Import student lists from file
+        - Generate attendance reports
+        - Backup all activity data
+        - Restore data from backup
+        - Merge data from multiple sources
+        - Data cleanup and validation
+        - Custom reports and analytics
+        - Data archiving for completed semesters
+        - Other data operation
+    validations:
+      required: true
+
+  - type: textarea
+    id: data-description
+    attributes:
+      label: Data Description
+      description: What specific data do you need to work with?
+      placeholder: |
+        Example: "I need to export all student registrations for fall semester activities, including student names, emails, activity names, and registration dates."
+        
+        Be specific about:
+        - Which activities or time periods
+        - What student information to include
+        - What format the data should be in
+        - Any filtering or sorting requirements
+    validations:
+      required: true
+
+  - type: dropdown
+    id: file-format
+    attributes:
+      label: Preferred File Format
+      description: What format should the data be in?
+      options:
+        - Excel spreadsheet (.xlsx)
+        - CSV (comma-separated values)
+        - PDF report
+        - JSON data file
+        - Plain text file
+        - Multiple formats (specify in description)
+        - Other format (specify in additional context)
+    validations:
+      required: true
+
+  - type: textarea
+    id: data-structure
+    attributes:
+      label: Required Data Structure
+      description: How should the data be organized? What columns or sections do you need?
+      placeholder: |
+        Example for student registration export:
+        Columns: Activity Name, Student Name, Student Email, Registration Date, Grade Level
+        
+        Example for activity summary report:
+        Section 1: Activity details (name, schedule, capacity)
+        Section 2: Registration statistics (current/max participants)
+        Section 3: Student list with contact information
+        
+        Or specify:
+        - One sheet per activity vs. all data in one sheet
+        - Grouping or sorting preferences
+        - Summary totals or calculations needed
+    validations:
+      required: true
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: How Often Will This Be Used?
+      description: How frequently do you need this data operation?
+      options:
+        - One-time export/import
+        - Weekly reports
+        - Monthly summaries
+        - End of semester reporting
+        - As needed (manual when required)
+        - Automated/scheduled exports
+    validations:
+      required: true
+
+  - type: textarea
+    id: filtering-requirements
+    attributes:
+      label: Filtering and Selection Criteria
+      description: What options do you need for selecting which data to include?
+      placeholder: |
+        Examples:
+        - Date range selection (all data, last month, specific semester)
+        - Activity selection (all activities, specific activities, by category)
+        - Student filtering (all students, by grade level, by registration status)
+        - Teacher filtering (my activities only, all teachers' activities)
+        - Status filtering (active registrations, cancelled registrations, all)
+    validations:
+      required: false
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case and Purpose
+      description: Why do you need this data? How will it be used?
+      placeholder: |
+        Examples:
+        - "Send to school administration for enrollment reporting"
+        - "Share with other teachers for coordination"
+        - "Track student participation trends over time"
+        - "Backup data before making major changes"
+        - "Import new student lists at start of semester"
+        - "Generate certificates for student participants"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: data-privacy
+    attributes:
+      label: Data Privacy and Security Requirements
+      description: Check all privacy and security considerations that apply
+      options:
+        - label: Data should only be accessible to authenticated teachers
+        - label: Student email addresses should be included
+        - label: Student personal information should be protected
+        - label: Data should be available for limited time only
+        - label: Exported files should be password protected
+        - label: Data should comply with school privacy policies
+        - label: Audit trail needed for data access and exports
+
+  - type: textarea
+    id: import-validation
+    attributes:
+      label: Import Validation Requirements (if applicable)
+      description: If importing data, what validation is needed?
+      placeholder: |
+        Examples:
+        - Email addresses must be valid format and @mergington.edu domain
+        - Student names must not be empty
+        - Activity names must exist in the system
+        - Duplicate registrations should be detected and handled
+        - Invalid data should be reported with specific error messages
+        - Partial imports should be supported (continue despite some errors)
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Check all requirements for this data management feature
+      options:
+        - label: Data export/import works correctly and completely
+        - label: File formats are compatible with common software (Excel, Google Sheets)
+        - label: Appropriate error messages for invalid data or operations
+        - label: Data integrity is maintained throughout the process
+        - label: Feature provides progress feedback for large operations
+        - label: Exported data is accurate and up-to-date
+        - label: User interface is intuitive and easy to use
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency Level
+      description: How quickly do you need this data management capability?
+      options:
+        - Low - Nice to have for future use
+        - Medium - Needed for upcoming semester planning
+        - High - Required for current semester management
+        - Critical - Needed immediately for urgent reporting
+    validations:
+      required: true
+
+  - type: textarea
+    id: sample-data
+    attributes:
+      label: Sample Data or Examples
+      description: Provide examples of the data you're working with or need to produce
+      placeholder: |
+        Example input file format:
+        Student Name, Email, Activity
+        John Smith, john.smith@mergington.edu, Chess Club
+        Jane Doe, jane.doe@mergington.edu, Drama Club
+        
+        Example output format:
+        Activity Name, Students Registered, Capacity, Registration Rate
+        Chess Club, 8, 12, 67%
+        Drama Club, 15, 20, 75%
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other important information about this data management request
+      placeholder: |
+        - Integration with other school systems required?
+        - File size limitations or performance considerations?
+        - Backup and recovery requirements?
+        - Compliance with school district data policies?
+        - Training or documentation needs for other teachers?
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        **Developer Implementation Notes:**
+        - Consider file size limits and memory usage for large datasets
+        - Implement proper error handling and user feedback
+        - Ensure secure file upload/download with appropriate permissions
+        - Test with realistic data volumes and various file formats
+        - Plan for data validation and sanitization
+        - Consider background processing for large operations
+        - Document file format requirements and limitations
