@@ -1,0 +1,180 @@
+name: User Interface Improvement
+description: Request changes to the website's appearance, layout, or user experience
+title: "[UI] "
+labels: ["ui-improvement", "enhancement"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## User Interface Improvement Request
+        
+        Use this template to request changes to how the website looks, feels, or functions from a user experience perspective.
+        
+        **For Copilot Developer:** UI changes typically involve:
+        - `src/static/styles.css` (styling and layout)
+        - `src/static/index.html` (HTML structure)
+        - `src/static/app.js` (interactive behavior)
+        - Consider responsive design for different screen sizes
+        - Maintain accessibility standards
+
+  - type: dropdown
+    id: ui-category
+    attributes:
+      label: Type of UI Improvement
+      description: What kind of user interface change do you need?
+      options:
+        - Color scheme or theme changes
+        - Layout or positioning adjustments
+        - Button or form improvements
+        - Text formatting or fonts
+        - Mobile/tablet responsiveness
+        - Accessibility improvements
+        - User experience flow
+        - Visual feedback or animations
+        - Other design enhancement
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-issue
+    attributes:
+      label: Current Issue or Problem
+      description: Describe what's currently problematic about the user interface
+      placeholder: |
+        Example: "The activity cards are too small on mobile devices, making it hard for teachers to read the details and register students during events."
+        
+        Be specific about:
+        - What looks or works poorly now
+        - Which devices or browsers have the problem
+        - How it affects teachers or students
+    validations:
+      required: true
+
+  - type: textarea
+    id: desired-outcome
+    attributes:
+      label: Desired Outcome
+      description: Describe exactly how you want the interface to look or behave
+      placeholder: |
+        Example: "Make the activity cards larger on mobile devices with bigger text and buttons that are easier to tap with fingers."
+        
+        Include details about:
+        - Colors, sizes, positioning
+        - How elements should respond to user interaction
+        - What the experience should feel like
+    validations:
+      required: true
+
+  - type: dropdown
+    id: affected-pages
+    attributes:
+      label: Which Pages/Sections Are Affected?
+      description: Where should these changes be made?
+      options:
+        - Main activities page (home page)
+        - Student registration modal/form
+        - Teacher login modal/form
+        - Activity filtering sidebar
+        - Activity cards/listings
+        - Header and navigation
+        - Footer
+        - All pages (site-wide change)
+        - Other (specify in description)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: device-focus
+    attributes:
+      label: Device Priority
+      description: Which devices should this improvement prioritize?
+      options:
+        - Desktop computers (primary focus)
+        - Mobile phones (primary focus)
+        - Tablets (primary focus)
+        - All devices equally
+        - Specific device (describe in additional context)
+    validations:
+      required: true
+
+  - type: textarea
+    id: visual-examples
+    attributes:
+      label: Visual Examples or References
+      description: Provide examples, links, or descriptions of similar designs you like
+      placeholder: |
+        - "Like the button style on [website URL]"
+        - "Similar to how [other school's website] displays activities"
+        - "Color scheme should be similar to our school's official colors: blue (#1234AB) and gold (#FFCC00)"
+        - "The text should be easier to read, like 16px font size instead of current small text"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Check all requirements for this UI improvement
+      options:
+        - label: Changes look good on desktop computers
+        - label: Changes look good on mobile phones
+        - label: Changes look good on tablets
+        - label: Text is readable and appropriately sized
+        - label: Buttons and interactive elements are easy to use
+        - label: Colors and styling match the school's branding
+        - label: Changes don't break existing functionality
+        - label: Page loads quickly with the new design
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency Level
+      description: How quickly do you need this UI improvement?
+      options:
+        - Low - Whenever convenient
+        - Medium - Before next major school event
+        - High - Within the next week
+        - Critical - ASAP (affecting daily use)
+    validations:
+      required: true
+
+  - type: textarea
+    id: user-impact
+    attributes:
+      label: Who Will Benefit and How?
+      description: Explain who will benefit from this improvement and why it matters
+      placeholder: |
+        - Teachers will be able to register students more quickly during busy events
+        - Students can more easily find activities they're interested in
+        - Parents viewing the site will have a better impression of the school
+        - Improved accessibility for teachers with vision difficulties
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information that would help with this UI improvement
+      placeholder: |
+        - School branding guidelines or color requirements
+        - Specific accessibility needs (vision, hearing, motor)
+        - Browser compatibility requirements
+        - Any design elements that must NOT be changed
+        - Peak usage times when UI changes would be most impactful
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        **Developer Implementation Notes:**
+        - Test changes across multiple browsers (Chrome, Firefox, Safari, Edge)
+        - Verify responsive design using browser developer tools
+        - Check color contrast ratios for accessibility compliance
+        - Ensure changes don't break JavaScript functionality
+        - Consider print styles if users might print pages
+        - Test with screen readers if accessibility is a concern

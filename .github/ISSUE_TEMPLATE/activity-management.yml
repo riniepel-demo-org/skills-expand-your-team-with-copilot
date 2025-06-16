@@ -1,0 +1,127 @@
+name: Activity Management
+description: Request changes to activities (add, modify, or remove activities)
+title: "[ACTIVITY] "
+labels: ["activity-management", "enhancement"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Activity Management Request
+        
+        Use this template to request changes to school activities such as adding new activities, modifying existing ones, or removing activities.
+        
+        **For Copilot Developer:** This request involves the activity management system. Key files to check:
+        - `src/backend/database.py` (activity data structure)
+        - `src/backend/routers/activities.py` (activity API endpoints)
+        - `src/static/app.js` (frontend activity display)
+        - `src/static/index.html` (activity UI elements)
+
+  - type: dropdown
+    id: request-type
+    attributes:
+      label: Type of Request
+      description: What kind of activity change do you need?
+      options:
+        - Add a new activity
+        - Modify an existing activity
+        - Remove an activity
+        - Change activity schedule
+        - Update activity capacity
+        - Modify activity description
+    validations:
+      required: true
+
+  - type: input
+    id: activity-name
+    attributes:
+      label: Activity Name
+      description: What is the name of the activity? (For new activities, provide the desired name)
+      placeholder: "e.g., Drama Club, Soccer Team, Science Fair Planning"
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-details
+    attributes:
+      label: Current Activity Details (if modifying existing)
+      description: If modifying an existing activity, describe what it currently looks like
+      placeholder: |
+        Current schedule: Mondays 3:15 PM - 4:45 PM
+        Current description: Learn strategies and compete in chess tournaments
+        Current capacity: 12 students
+        Current participants: 8 students registered
+    validations:
+      required: false
+
+  - type: textarea
+    id: desired-details
+    attributes:
+      label: Desired Activity Details
+      description: Describe exactly what you want the activity to look like
+      placeholder: |
+        Desired schedule: Tuesdays and Thursdays 3:30 PM - 5:00 PM
+        Desired description: Learn acting techniques and perform in school plays
+        Desired capacity: 20 students
+        Any special requirements: Need permission forms for performances
+    validations:
+      required: true
+
+  - type: textarea
+    id: schedule-details
+    attributes:
+      label: Schedule Information
+      description: Provide specific schedule details if applicable
+      placeholder: |
+        Days of the week: Monday, Wednesday, Friday
+        Start time: 3:15 PM (use 12-hour format)
+        End time: 4:45 PM (use 12-hour format)
+        Special notes: Closed during exam weeks
+    validations:
+      required: false
+
+  - type: input
+    id: max-participants
+    attributes:
+      label: Maximum Number of Participants
+      description: How many students can participate in this activity?
+      placeholder: "e.g., 15, 25, unlimited"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Check all that must be completed for this request
+      options:
+        - label: Activity appears in the activities list on the website
+        - label: Students can register for the activity (if applicable)
+        - label: Activity shows correct schedule information
+        - label: Activity shows correct description and details
+        - label: Maximum participant limit is enforced (if applicable)
+        - label: Teachers can manage student registrations for this activity
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other important information about this activity request
+      placeholder: |
+        - Why is this change needed?
+        - Are there any deadlines?
+        - Should this affect existing student registrations?
+        - Any special considerations?
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        **Developer Notes:**
+        - Activities are stored in the MongoDB `activities` collection
+        - The activity data structure includes: name, description, schedule, schedule_details, max_participants, and participants array
+        - Frontend filters activities by day and time ranges
+        - Schedule format should support both string display and structured data for filtering

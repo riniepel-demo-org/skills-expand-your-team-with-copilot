@@ -1,0 +1,174 @@
+name: Feature Request
+description: Request new functionality or enhancements to the application
+title: "[FEATURE] "
+labels: ["enhancement", "feature-request"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Feature Request
+        
+        Use this template to request new features or enhancements to the Mergington High School Activities application.
+        
+        **For Copilot Developer:** This is a feature request that may involve multiple parts of the application:
+        - Backend API changes in `src/backend/routers/`
+        - Database schema updates in `src/backend/database.py`
+        - Frontend changes in `src/static/` (HTML, CSS, JavaScript)
+        - Consider impact on existing functionality and data
+
+  - type: dropdown
+    id: feature-category
+    attributes:
+      label: Feature Category
+      description: What area of the application does this feature relate to?
+      options:
+        - Student Registration & Management
+        - Activity Display & Filtering
+        - Teacher Dashboard & Tools
+        - Data Export & Reporting
+        - User Experience & Interface
+        - Security & Authentication
+        - Notifications & Communication
+        - Mobile & Accessibility
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Feature Description
+      description: Clearly describe the feature you want added
+      placeholder: |
+        Example: "Add ability to export student registration data to Excel spreadsheet"
+        
+        Be specific about:
+        - What the feature should do
+        - Who will use it (students, teachers, administrators)
+        - How it should work
+    validations:
+      required: true
+
+  - type: textarea
+    id: user-story
+    attributes:
+      label: User Story
+      description: Describe this feature from the user's perspective
+      placeholder: |
+        As a [teacher/student/administrator], 
+        I want to [do something specific],
+        So that I can [achieve this goal].
+        
+        Example:
+        As a teacher,
+        I want to send email notifications to students when new activities are added,
+        So that students don't miss opportunities to register.
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-workflow
+    attributes:
+      label: Current Workflow (if applicable)
+      description: How is this task currently done, and what are the pain points?
+      placeholder: |
+        Currently I have to:
+        1. Manually check each activity for new registrations
+        2. Write down student names on paper
+        3. Enter them into a separate spreadsheet
+        
+        Problems:
+        - Time consuming
+        - Error prone
+        - Data gets out of sync
+    validations:
+      required: false
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution
+      description: How do you envision this feature working?
+      placeholder: |
+        The feature should:
+        1. Add an "Export" button on the activities page
+        2. When clicked, generate an Excel file with student registration data
+        3. Include columns for: Student Name, Email, Activity, Registration Date
+        4. Allow filtering by date range or specific activities
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Check all requirements that must be met for this feature
+      options:
+        - label: Feature works correctly for teachers after login
+        - label: Feature does not break existing functionality
+        - label: Feature is intuitive and easy to use
+        - label: Feature provides appropriate error messages if something goes wrong
+        - label: Feature works on both desktop and mobile devices
+        - label: Feature follows the existing design style of the application
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority Level
+      description: How important is this feature?
+      options:
+        - Low - Nice to have
+        - Medium - Would improve workflow significantly
+        - High - Critical for daily operations
+        - Urgent - Blocking current work
+    validations:
+      required: true
+
+  - type: input
+    id: deadline
+    attributes:
+      label: Deadline (if any)
+      description: Is there a specific date this feature is needed by?
+      placeholder: "e.g., Before the start of next semester, December 15th, No specific deadline"
+    validations:
+      required: false
+
+  - type: textarea
+    id: technical-suggestions
+    attributes:
+      label: Technical Suggestions (if any)
+      description: If you have ideas about how this could be implemented technically, share them here
+      placeholder: |
+        - Could use an Excel library like openpyxl for Python
+        - Might need a new API endpoint like /activities/export
+        - Consider adding a download progress indicator
+        - Should validate user permissions before allowing export
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other relevant information about this feature request
+      placeholder: |
+        - How many teachers would use this feature?
+        - Are there similar features in other tools you've used?
+        - Any compliance or privacy considerations?
+        - Examples of other schools/tools that have this feature?
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        **Developer Implementation Notes:**
+        - Consider backward compatibility with existing data
+        - Ensure proper error handling and user feedback
+        - Add appropriate logging for debugging
+        - Test with realistic data volumes
+        - Consider performance impact on the application
+        - Update API documentation if new endpoints are added
