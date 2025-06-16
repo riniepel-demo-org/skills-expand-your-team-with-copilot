@@ -6,7 +6,7 @@ from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import RedirectResponse
 from typing import Dict, Any, Optional, List
 
-from backend.database import activities_collection, teachers_collection
+from backend.database_mock import activities_collection, teachers_collection
 
 router = APIRouter(
     prefix="/activities",
