@@ -10,7 +10,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 import os
 from pathlib import Path
-from .backend import routers, database
+from backend import routers
+from backend.database_mock import init_database
 
 # Initialize web host
 app = FastAPI(
@@ -19,7 +20,7 @@ app = FastAPI(
 )
 
 # Initialize database with sample data if empty
-database.init_database()
+init_database()
 
 # Mount the static files directory for serving the frontend
 current_dir = Path(__file__).parent

@@ -1,15 +1,86 @@
 """
-MongoDB database configuration and setup for Mergington High School API
+Simple in-memory database for testing without MongoDB
 """
 
-from pymongo import MongoClient
 from argon2 import PasswordHasher
 
-# Connect to MongoDB
-client = MongoClient('mongodb://localhost:27017/')
-db = client['mergington_high']
-activities_collection = db['activities']
-teachers_collection = db['teachers']
+# In-memory storage
+activities_store = {}
+teachers_store = {}
+
+class MockCollection:
+    def __init__(self, store):
+        self.store = store
+    
+    def find(self, query=None):
+        if query is None:
+            return [{"_id": k, **v} for k, v in self.store.items()]
+        
+        # Simple query support for the features we need
+        result = []
+        for key, value in self.store.items():
+            match = True
+            
+            if "schedule_details.days" in query:
+                days_query = query["schedule_details.days"]
+                if "$in" in days_query:
+                    if "schedule_details" not in value or "days" not in value["schedule_details"]:
+                        match = False
+                    else:
+                        activity_days = value["schedule_details"]["days"]
+                        if not any(day in activity_days for day in days_query["$in"]):
+                            match = False
+            
+            if match:
+                result.append({"_id": key, **value})
+        
+        return result
+    
+    def find_one(self, query):
+        results = list(self.find(query))
+        return results[0] if results else None
+    
+    def insert_one(self, doc):
+        doc_id = doc.pop("_id")
+        self.store[doc_id] = doc
+    
+    def count_documents(self, query):
+        return len(list(self.find(query)))
+    
+    def delete_one(self, query):
+        # Simple implementation
+        if "_id" in query:
+            if query["_id"] in self.store:
+                del self.store[query["_id"]]
+    
+    def update_one(self, query, update):
+        # Simple implementation for $push operations
+        if "_id" in query and query["_id"] in self.store:
+            if "$push" in update:
+                for field, value in update["$push"].items():
+                    if field not in self.store[query["_id"]]:
+                        self.store[query["_id"]][field] = []
+                    self.store[query["_id"]][field].append(value)
+            if "$pull" in update:
+                for field, value in update["$pull"].items():
+                    if field in self.store[query["_id"]] and isinstance(self.store[query["_id"]][field], list):
+                        if value in self.store[query["_id"]][field]:
+                            self.store[query["_id"]][field].remove(value)
+    
+    def aggregate(self, pipeline):
+        # Very simple aggregation for getting unique days
+        if len(pipeline) >= 2 and pipeline[0].get("$unwind") == "$schedule_details.days":
+            unique_days = set()
+            for value in self.store.values():
+                if "schedule_details" in value and "days" in value["schedule_details"]:
+                    for day in value["schedule_details"]["days"]:
+                        unique_days.add(day)
+            return [{"_id": day} for day in sorted(unique_days)]
+        return []
+
+# Create mock collections
+activities_collection = MockCollection(activities_store)
+teachers_collection = MockCollection(teachers_store)
 
 # Methods
 def hash_password(password):
@@ -202,4 +273,3 @@ initial_teachers = [
         "role": "admin"
     }
 ]
-
