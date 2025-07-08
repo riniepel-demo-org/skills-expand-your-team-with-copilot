@@ -267,6 +267,28 @@ section h3 {
   align-items: center;
 }
 
+/* Grouped display */
+.activity-group {
+  margin-bottom: 25px;
+}
+
+.activity-group h3 {
+  margin-bottom: 15px;
+  padding: 10px;
+  background: linear-gradient(145deg, var(--primary), var(--primary-dark));
+  color: white;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.activity-group .activities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+}
+
 /* Buttons */
 .register-button {
   background: linear-gradient(145deg, var(--secondary), var(--secondary-dark));
@@ -539,7 +561,8 @@ footer {
 
 .category-filters,
 .day-filters,
-.time-filters {
+.time-filters,
+.display-mode-toggle {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
@@ -547,7 +570,8 @@ footer {
 
 .category-filter,
 .day-filter,
-.time-filter {
+.time-filter,
+.mode-toggle {
   background-color: var(--background);
   border: 1px solid var(--border);
   color: var(--text-primary);
@@ -560,7 +584,8 @@ footer {
 
 .category-filter.active,
 .day-filter.active,
-.time-filter.active {
+.time-filter.active,
+.mode-toggle.active {
   background-color: var(--primary);
   color: white;
   border-color: var(--primary-dark);
@@ -568,7 +593,8 @@ footer {
 
 .category-filter:hover,
 .day-filter:hover,
-.time-filter:hover {
+.time-filter:hover,
+.mode-toggle:hover {
   background-color: var(--primary-light);
   color: white;
 }

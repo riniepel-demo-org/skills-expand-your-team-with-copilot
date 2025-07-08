@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const categoryFilters = document.querySelectorAll(".category-filter");
   const dayFilters = document.querySelectorAll(".day-filter");
   const timeFilters = document.querySelectorAll(".time-filter");
+  const filterModeBtn = document.getElementById("filter-mode");
+  const groupModeBtn = document.getElementById("group-mode");
 
   // Authentication elements
   const loginButton = document.getElementById("login-button");
@@ -40,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let searchQuery = "";
   let currentDay = "";
   let currentTimeRange = "";
+  let isGroupMode = false; // New state for display mode
 
   // Authentication state
   let currentUser = null;
@@ -329,6 +332,17 @@ document.addEventListener("DOMContentLoaded", () => {
     ) {
       return "arts";
     } else if (
+      name.includes("computer") ||
+      name.includes("coding") ||
+      name.includes("tech") ||
+      name.includes("robotics") ||
+      desc.includes("programming") ||
+      desc.includes("technology") ||
+      desc.includes("digital") ||
+      desc.includes("robot")
+    ) {
+      return "technology";
+    } else if (
       name.includes("science") ||
       name.includes("math") ||
       name.includes("academic") ||
@@ -346,17 +360,6 @@ document.addEventListener("DOMContentLoaded", () => {
       desc.includes("volunteer")
     ) {
       return "community";
-    } else if (
-      name.includes("computer") ||
-      name.includes("coding") ||
-      name.includes("tech") ||
-      name.includes("robotics") ||
-      desc.includes("programming") ||
-      desc.includes("technology") ||
-      desc.includes("digital") ||
-      desc.includes("robot")
-    ) {
-      return "technology";
     }
 
     // Default to "academic" if no match
@@ -467,13 +470,54 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Display filtered activities
+    if (isGroupMode) {
+      displayGroupedActivities(filteredActivities);
+    } else {
+      Object.entries(filteredActivities).forEach(([name, details]) => {
+        renderActivityCard(name, details);
+      });
+    }
+  }
+
+  // Function to display activities grouped by category
+  function displayGroupedActivities(filteredActivities) {
+    // Group activities by category
+    const groupedActivities = {};
+    
     Object.entries(filteredActivities).forEach(([name, details]) => {
-      renderActivityCard(name, details);
+      const activityType = getActivityType(name, details.description);
+      if (!groupedActivities[activityType]) {
+        groupedActivities[activityType] = [];
+      }
+      groupedActivities[activityType].push([name, details]);
+    });
+
+    // Display each group
+    Object.entries(groupedActivities).forEach(([category, activities]) => {
+      const groupDiv = document.createElement("div");
+      groupDiv.className = "activity-group";
+      
+      // Add group header
+      const groupHeader = document.createElement("h3");
+      groupHeader.textContent = activityTypes[category]?.label || category;
+      groupDiv.appendChild(groupHeader);
+      
+      // Add activities grid
+      const activitiesGrid = document.createElement("div");
+      activitiesGrid.className = "activities-grid";
+      
+      activities.forEach(([name, details]) => {
+        const activityCard = createActivityCard(name, details);
+        activitiesGrid.appendChild(activityCard);
+      });
+      
+      groupDiv.appendChild(activitiesGrid);
+      activitiesList.appendChild(groupDiv);
     });
   }
 
-  // Function to render a single activity card
-  function renderActivityCard(name, details) {
+  // Function to create a single activity card element (extracted from renderActivityCard)
+  function createActivityCard(name, details) {
     const activityCard = document.createElement("div");
     activityCard.className = "activity-card";
 
@@ -587,6 +631,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    return activityCard;
+  }
+
+  // Function to render a single activity card
+  // Function to render a single activity card
+  function renderActivityCard(name, details) {
+    const activityCard = createActivityCard(name, details);
     activitiesList.appendChild(activityCard);
   }
 
@@ -600,6 +651,27 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
     searchQuery = searchInput.value;
     displayFilteredActivities();
+  });
+
+  // Add event listeners to display mode toggle buttons
+  filterModeBtn.addEventListener("click", () => {
+    if (isGroupMode) {
+      // Switch to filter mode
+      isGroupMode = false;
+      filterModeBtn.classList.add("active");
+      groupModeBtn.classList.remove("active");
+      displayFilteredActivities();
+    }
+  });
+
+  groupModeBtn.addEventListener("click", () => {
+    if (!isGroupMode) {
+      // Switch to group mode
+      isGroupMode = true;
+      groupModeBtn.classList.add("active");
+      filterModeBtn.classList.remove("active");
+      displayFilteredActivities();
+    }
   });
 
   // Add event listeners to category filter buttons
