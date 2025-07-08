@@ -332,6 +332,17 @@ document.addEventListener("DOMContentLoaded", () => {
     ) {
       return "arts";
     } else if (
+      name.includes("computer") ||
+      name.includes("coding") ||
+      name.includes("tech") ||
+      name.includes("robotics") ||
+      desc.includes("programming") ||
+      desc.includes("technology") ||
+      desc.includes("digital") ||
+      desc.includes("robot")
+    ) {
+      return "technology";
+    } else if (
       name.includes("science") ||
       name.includes("math") ||
       name.includes("academic") ||
@@ -349,17 +360,6 @@ document.addEventListener("DOMContentLoaded", () => {
       desc.includes("volunteer")
     ) {
       return "community";
-    } else if (
-      name.includes("computer") ||
-      name.includes("coding") ||
-      name.includes("tech") ||
-      name.includes("robotics") ||
-      desc.includes("programming") ||
-      desc.includes("technology") ||
-      desc.includes("digital") ||
-      desc.includes("robot")
-    ) {
-      return "technology";
     }
 
     // Default to "academic" if no match
